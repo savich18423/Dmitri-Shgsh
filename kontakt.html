@@ -13,6 +13,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      cursor: none; /* убираем стандартный курсор */
     }
 
     /* Навбар */
@@ -46,18 +47,6 @@
       box-shadow: 0 0 10px #8a6cff;
     }
 
-    /* Рандомная фраза */
-    .random-phrase {
-      margin-top: 80px;
-      text-align: center;
-      font-size: 1.3em;
-      font-weight: bold;
-      background: linear-gradient(90deg, #ff2bf7, #5a5cff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: fadeIn 1s ease;
-    }
-
     /* Контейнер */
     .container {
       margin: auto;
@@ -69,7 +58,7 @@
 
     h1 {
       font-size: 2.5em;
-      margin: 20px 0 25px;
+      margin: 100px 0 25px;
       background: linear-gradient(90deg, #ff2bf7, #5a5cff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -108,6 +97,24 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Стили для звёздочек курсора */
+    .star {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, #fff, transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      animation: starFade 1s forwards;
+      z-index: 9999;
+    }
+
+    @keyframes starFade {
+      from { opacity: 1; transform: scale(1) translate(-50%, -50%); }
+      to { opacity: 0; transform: scale(0) translate(-50%, -50%); }
+    }
+
     /* Адаптив */
     @media (max-width: 600px) {
       h1 {
@@ -124,9 +131,6 @@
         font-size: 0.95em;
         padding: 15px;
       }
-      .random-phrase {
-        font-size: 1.1em;
-      }
     }
   </style>
 </head>
@@ -139,9 +143,6 @@
     <a href="#">Сериал</a>
     <a href="kontakt.html">Контакты</a>
   </div>
-
-  <!-- Рандомная фраза -->
-  <div class="random-phrase" id="randomPhrase">Загрузка...</div>
 
   <!-- Контент -->
   <div class="container">
@@ -162,29 +163,16 @@
     </div>
   </div>
 
-  <!-- JS для смены фраз -->
+  <!-- JS для курсора -->
   <script>
-    const phrases = [
-      "дима покажи лицо",
-      "димитрий или дима?",
-      "дерзкий лох",
-      "майнкрафт моя жизнь",
-      "подпишись на тг",
-      "люблю Ксюшу",
-      "когда стрим",
-      "отстань",
-      "пишите - @DIMASCHOOL"
-    ];
-
-    const phraseEl = document.getElementById("randomPhrase");
-
-    function updatePhrase() {
-      const randomIndex = Math.floor(Math.random() * phrases.length);
-      phraseEl.textContent = phrases[randomIndex];
-    }
-
-    updatePhrase(); // сразу первая фраза
-    setInterval(updatePhrase, 5000); // меняется каждые 5 секунд
+    document.addEventListener("mousemove", (e) => {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = `${e.pageX}px`;
+      star.style.top = `${e.pageY}px`;
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1000);
+    });
   </script>
 
 </body>
