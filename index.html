@@ -21,7 +21,6 @@
       -ms-user-select: none;
     }
 
-    /* 🔒 Убираем подсветку и тапы на мобиле */
     * {
       -webkit-tap-highlight-color: transparent;
       outline: none;
@@ -58,7 +57,6 @@
       box-shadow: 0 0 10px #8a6cff;
     }
 
-    /* Подпись под навбаром */
     .nav-text {
       margin-top: 80px;
       text-align: center;
@@ -67,7 +65,6 @@
       animation: fadeIn 2s ease;
     }
 
-    /* Контейнер контента */
     .container {
       margin: auto;
       text-align: center;
@@ -108,7 +105,7 @@
       box-shadow: 0 0 20px #8a6cff;
     }
 
-    /* Фото с градиентом */
+    /* Фото */
     .avatar-wrapper {
       position: relative;
       display: inline-block;
@@ -142,7 +139,6 @@
       transition: transform 0.2s;
     }
 
-    /* 🚫 убираем синее свечение даже на телефоне */
     .avatar-wrapper:active .avatar {
       transform: scale(1.1);
       box-shadow: none;
@@ -158,7 +154,58 @@
       to { transform: scale(1.1); opacity: 1; }
     }
 
-    /* Адаптив */
+    /* ⭐ звезды */
+    .star {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, #fff, transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      animation: starFade 1s forwards;
+      z-index: 9999;
+    }
+
+    @keyframes starFade {
+      from { opacity: 1; transform: scale(1) translate(-50%, -50%); }
+      to { opacity: 0; transform: scale(0) translate(-50%, -50%); }
+    }
+
+    /* ✿ падающие символы */
+    .falling {
+      position: fixed;
+      top: -50px;
+      font-size: 2em;
+      color: rgba(255,153,204,0.7);
+      pointer-events: none;
+      animation: fall linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* +Бал */
+    .bal {
+      position: fixed;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #ff69b4;
+      pointer-events: none;
+      animation: flyUp 1s ease-out forwards;
+      z-index: 2000;
+    }
+
+    @keyframes flyUp {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-50px); }
+    }
+
     @media (max-width: 600px) {
       h1 { font-size: 2em; }
       .avatar { width: 150px; height: 150px; }
@@ -177,14 +224,10 @@
     <a href="kontakt.html">Контакты</a>
   </div>
 
-  <!-- Подпись под навбаром -->
-  <div class="nav-text">
-    Выберите нужную вам страницу 👍
-  </div>
+  <div class="nav-text">Выберите нужную вам страницу 👍</div>
 
-  <!-- Контент -->
   <div class="container">
-    <div class="avatar-wrapper">
+    <div class="avatar-wrapper" id="avatarWrapper">
       <img class="avatar" src="https://yt3.googleusercontent.com/uR5A7i-DbO_dgch_8J7D1wW0BV8o_Bdue1l2zJuHeEAcPzR64_6OuLXHJ5ZN4SSF3s4NnauOZw=s900-c-k-c0x00ffffff-no-rj" alt="Дима">
     </div>
     <h1>Йо, Дмитрий</h1>
@@ -197,21 +240,9 @@
     </p>
   </div>
 
-  <!-- 🔒 JS блокировка -->
+  <!-- JS эффекты -->
   <script>
-    // Запрет правой кнопки мыши
-    document.addEventListener("contextmenu", e => e.preventDefault());
-
-    // Запрет копирования
-    document.addEventListener("copy", e => e.preventDefault());
-
-    // Запрет выделения текста
-    document.addEventListener("selectstart", e => e.preventDefault());
-
-    // Запрет drag&drop картинок
-    document.addEventListener("dragstart", e => e.preventDefault());
-
-      // Звезды только на мобиле
+    // Звезды только на мобиле
     function createStar(x, y) {
       const star = document.createElement("div");
       star.className = "star";
@@ -247,13 +278,18 @@
     avatarWrapper.addEventListener("click", (e) => {
       const bal = document.createElement("div");
       bal.className = "bal";
-      bal.textContent = "Ой";
+      bal.textContent = "+Бал";
       bal.style.left = (e.clientX - 20) + "px";
       bal.style.top = (e.clientY - 20) + "px";
       document.body.appendChild(bal);
       setTimeout(() => bal.remove(), 1000);
     });
-    
+
+    // 🔒 Запрет правой кнопки, копирования и выделения
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("copy", e => e.preventDefault());
+    document.addEventListener("selectstart", e => e.preventDefault());
+    document.addEventListener("dragstart", e => e.preventDefault());
   </script>
 
 </body>
