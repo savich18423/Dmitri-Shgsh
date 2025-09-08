@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -13,6 +13,16 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+
+      /* 🔒 запрет выделения */
+      user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
     }
 
     /* Навбар */
@@ -125,7 +135,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Звёзды */
+    /* ⭐ Звёзды */
     .star {
       position: fixed;
       width: 8px;
@@ -141,6 +151,24 @@
     @keyframes starFade {
       from { opacity: 1; transform: scale(1) translate(-50%, -50%); }
       to { opacity: 0; transform: scale(0) translate(-50%, -50%); }
+    }
+
+    /* ✿ падающие символы */
+    .falling {
+      position: fixed;
+      top: -50px;
+      font-size: 2em;
+      color: rgba(255,153,204,0.7);
+      pointer-events: none;
+      animation: fall linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     /* Адаптив */
@@ -164,7 +192,7 @@
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
   <!-- Навбар -->
   <div class="navbar">
@@ -192,14 +220,15 @@
       </div>
     </div>
 
-    <!-- Фото справа (на мобиле уходит вниз) -->
+    <!-- Фото справа -->
     <div class="side-image">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaiTHjLp8Ad3pcKpb1FXYhe53lMSSowrQtng&s" alt="Dima">
     </div>
   </div>
 
-  <!-- JS для звёздочек только на телефонах -->
+  <!-- JS эффекты -->
   <script>
+    // ⭐ Звезды только на мобилке
     function createStar(x, y) {
       const star = document.createElement("div");
       star.className = "star";
@@ -209,13 +238,32 @@
       setTimeout(() => star.remove(), 1000);
     }
 
-    // Только для мобильных устройств
     if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
       document.addEventListener("touchmove", (e) => {
         const touch = e.touches[0];
         createStar(touch.pageX, touch.pageY);
       });
     }
+
+    // ✿ Падающие символы
+    function createFalling() {
+      const symbols = ["✿", "★", "✦", "❀"];
+      const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+      const elem = document.createElement("div");
+      elem.className = "falling";
+      elem.textContent = symbol;
+      elem.style.left = Math.random() * 100 + "vw";
+      elem.style.animationDuration = (4 + Math.random() * 4) + "s";
+      document.body.appendChild(elem);
+      setTimeout(() => elem.remove(), 8000);
+    }
+    setInterval(createFalling, 1500);
+
+    // 🔒 запрет правой кнопки и копирования
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("copy", e => e.preventDefault());
+    document.addEventListener("selectstart", e => e.preventDefault());
+    document.addEventListener("dragstart", e => e.preventDefault());
   </script>
 
 </body>
