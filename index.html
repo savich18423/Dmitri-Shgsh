@@ -8,49 +8,50 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff9ecb, #6aa8ff);
+      min-height: 100vh;
+      background: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: white;
+      color: #222;
       text-align: center;
       overflow: hidden;
-      animation: fadeIn 2s ease-in-out;
     }
 
     .container {
-      background: rgba(0,0,0,0.3);
-      padding: 30px;
+      padding: 40px;
       border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-      animation: slideUp 1.5s ease forwards;
-      opacity: 0;
+      background: linear-gradient(135deg, #3f87ff, #9cd6ff, #ffffff);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      animation: fadeIn 2s ease-in-out, float 5s ease-in-out infinite alternate;
     }
 
     h1 {
-      font-size: 2.5em;
+      font-size: 2.8em;
       margin-bottom: 15px;
+      color: #0d47a1;
+      animation: slideDown 1.5s ease forwards;
     }
 
     p {
-      font-size: 1.2em;
+      font-size: 1.3em;
       margin-bottom: 20px;
+      animation: fadeInText 2.5s ease forwards;
     }
 
     a {
       display: inline-block;
       padding: 12px 25px;
-      background: #ffffff22;
+      background: #0d47a1;
       color: #fff;
       text-decoration: none;
       border-radius: 10px;
       font-weight: bold;
-      transition: background 0.3s;
+      transition: 0.3s;
     }
 
     a:hover {
-      background: #ffffff55;
+      background: #1565c0;
     }
 
     @keyframes fadeIn {
@@ -58,16 +59,29 @@
       to { opacity: 1; }
     }
 
-    @keyframes slideUp {
-      from { transform: translateY(50px); opacity: 0; }
+    @keyframes slideDown {
+      from { transform: translateY(-40px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInText {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-15px); }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Дмитрий (Дима)</h1>
-    <p>Главный персонаж сериала <b>«Школа глазами Школьника»</b>.</p>
+    <h1>Йо, Дмитрий</h1>
+    <p>
+      Более известен как Дима ШГШ. <br>
+      Также Дмитрий — главный персонаж сериала <b>«Школа глазами Школьника»</b>.
+    </p>
     <a href="https://www.youtube.com/@hladenkoschool" target="_blank">Смотреть канал</a>
   </div>
 </body>
