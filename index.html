@@ -13,6 +13,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
 
     /* Навбар */
@@ -62,6 +63,8 @@
       max-width: 700px;
       padding: 20px;
       animation: fadeIn 2s ease;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -99,6 +102,7 @@
       position: relative;
       display: inline-block;
       margin-bottom: 25px;
+      cursor: pointer;
     }
 
     .avatar-wrapper::before {
@@ -124,8 +128,15 @@
       border: 5px solid rgba(255,255,255,0.2);
       box-shadow: 0 0 30px rgba(138,108,255,0.8);
       z-index: 1;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
+    .avatar-wrapper:active .avatar {
+      transform: scale(1.1);
+      box-shadow: 0 0 50px #ff2bf7;
+    }
+
+    /* Анимации */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -136,22 +147,47 @@
       to { transform: scale(1.1); opacity: 1; }
     }
 
+    /* Звёзды */
+    .star {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, #fff, transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      animation: starFade 1s forwards;
+      z-index: 9999;
+    }
+
+    @keyframes starFade {
+      from { opacity: 1; transform: scale(1) translate(-50%, -50%); }
+      to { opacity: 0; transform: scale(0) translate(-50%, -50%); }
+    }
+
+    /* Падающие цветы/символы */
+    .falling {
+      position: fixed;
+      top: -50px;
+      font-size: 2em;
+      color: rgb(255, 153, 204);
+      opacity: 0.6;
+      pointer-events: none;
+      animation: fall linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-50px) rotate(0deg); opacity: 0.6; }
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
     /* Адаптив */
     @media (max-width: 600px) {
-      h1 {
-        font-size: 2em;
-      }
-      .avatar {
-        width: 150px;
-        height: 150px;
-      }
-      .navbar {
-        gap: 10px;
-      }
-      .navbar a {
-        font-size: 0.9em;
-        padding: 6px 12px;
-      }
+      h1 { font-size: 2em; }
+      .avatar { width: 150px; height: 150px; }
+      .navbar { gap: 10px; }
+      .navbar a { font-size: 0.9em; padding: 6px 12px; }
     }
   </style>
 </head>
@@ -184,6 +220,41 @@
       <a href="https://www.youtube.com/@hladenkoschool" target="_blank" class="btn">Смотреть</a>
     </p>
   </div>
+
+  <!-- JS эффекты -->
+  <script>
+    // Звезды только на мобиле
+    function createStar(x, y) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = `${x}px`;
+      star.style.top = `${y}px`;
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1000);
+    }
+
+    if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+      document.addEventListener("touchmove", (e) => {
+        const touch = e.touches[0];
+        createStar(touch.pageX, touch.pageY);
+      });
+    }
+
+    // Падающие символы ✿
+    function createFalling() {
+      const symbols = ["✿", "★", "✦", "❀"];
+      const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+      const elem = document.createElement("div");
+      elem.className = "falling";
+      elem.textContent = symbol;
+      elem.style.left = Math.random() * 100 + "vw";
+      elem.style.animationDuration = (4 + Math.random() * 4) + "s";
+      document.body.appendChild(elem);
+      setTimeout(() => elem.remove(), 8000);
+    }
+
+    setInterval(createFalling, 1500);
+  </script>
 
 </body>
 </html>
