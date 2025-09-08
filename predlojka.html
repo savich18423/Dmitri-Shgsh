@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Предложка</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at center, #2b0040, #0a0015);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Навбар */
+    .navbar {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      padding: 20px;
+      background: rgba(0,0,0,0.4);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      flex-wrap: wrap;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    .navbar a:hover {
+      background: linear-gradient(90deg, #ff2bf7, #5a5cff);
+      box-shadow: 0 0 10px #8a6cff;
+    }
+
+    /* Контент */
+    .container {
+      margin: auto;
+      max-width: 700px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin: 120px 0 20px;
+      background: linear-gradient(90deg, #ff2bf7, #5a5cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.6em;
+      margin-bottom: 25px;
+    }
+
+    form {
+      background: rgba(255,255,255,0.05);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(180, 90, 255, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      outline: none;
+    }
+
+    input[type="file"] {
+      background: rgba(255,255,255,0.08);
+      color: #ddd;
+      padding: 10px;
+    }
+
+    button {
+      background: linear-gradient(90deg, #ff2bf7, #5a5cff);
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      color: white;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(180, 90, 255, 0.7);
+    }
+
+    .success {
+      margin-top: 15px;
+      color: #80ffb0;
+      font-weight: bold;
+      display: none;
+    }
+
+    .error {
+      margin-top: 15px;
+      color: #ff8080;
+      font-weight: bold;
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 1.8em;
+      }
+      p {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Навбар -->
+  <div class="navbar">
+    <a href="index.html">Главная</a>
+    <a href="kontakt.html">Контакты</a>
+    <a href="stream.html">Стримы</a>
+    <a href="predlojka.html">Предложка</a>
+  </div>
+
+  <!-- Контент -->
+  <div class="container">
+    <h1>Предложка</h1>
+    <p>
+      Итак, ну что ж, теперь вы можете прислать <b>ваши арты, работы и всё, что хотите</b>, связанное с Димой 🥰<br><br>
+      Внизу вы можете отправить <b>фото, видео, файл или текст</b> (мин. 5 символов).<br>
+      Также можете указать свой контакт, если хотите, чтобы вас не публиковали анонимно 👇
+    </p>
+
+    <form id="suggestionForm">
+      <textarea name="text" placeholder="Введите текст (мин. 5 символов)" minlength="5" required></textarea>
+      <input type="text" name="contact" placeholder="Ваш контакт (необязательно)">
+      <input type="file" name="file">
+      <button type="submit">Отправить</button>
+      <div class="success">✅ Успешно отправлено!</div>
+      <div class="error">❌ Ошибка при отправке!</div>
+    </form>
+  </div>
+
+  <!-- JS -->
+  <script>
+    const BOT_TOKEN = "8085047191:AAFz6U0KrTtyCoF2-Hxlk01P7dFj-oq1pAI";
+    const CHAT_ID = "8085047191";
+    const form = document.getElementById("suggestionForm");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const text = formData.get("text");
+      const contact = formData.get("contact");
+      const file = formData.get("file");
+
+      if (text.length < 5) {
+        document.querySelector(".error").style.display = "block";
+        document.querySelector(".error").innerText = "❌ Минимум 5 символов!";
+        return;
+      }
+
+      let message = `📩 Новая заявка в предложку:\n\n💬 Текст: ${text}\n👤 Контакт: ${contact || "Аноним"}`;
+
+      try {
+        // Отправка текста
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: message,
+          }),
+        });
+
+        // Отправка файла, если есть
+        if (file && file.size > 0) {
+          const fd = new FormData();
+          fd.append("chat_id", CHAT_ID);
+          fd.append("document", file);
+
+          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, {
+            method: "POST",
+            body: fd,
+          });
+        }
+
+        document.querySelector(".success").style.display = "block";
+        document.querySelector(".error").style.display = "none";
+        form.reset();
+      } catch (err) {
+        document.querySelector(".error").style.display = "block";
+        document.querySelector(".success").style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
