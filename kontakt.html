@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at center, #2b0040, #0a0015);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      padding: 20px;
+      background: rgba(0,0,0,0.4);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      flex-wrap: wrap;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    .navbar a:hover {
+      background: linear-gradient(90deg, #ff2bf7, #5a5cff);
+      box-shadow: 0 0 10px #8a6cff;
+    }
+
+    .container {
+      margin: auto;
+      text-align: center;
+      max-width: 700px;
+      padding: 20px;
+      animation: fadeIn 2s ease;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin: 20px 0 15px;
+      background: linear-gradient(90deg, #ff2bf7, #5a5cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.6em;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+      .navbar {
+        gap: 10px;
+      }
+      .navbar a {
+        font-size: 0.9em;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Главная</a>
+    <a href="#">О Диме</a>
+    <a href="#">Сериал</a>
+    <a href="kontakt.html">Контакты</a>
+  </div>
+
+  <div class="container">
+    <h1>Контакты</h1>
+    <p>
+      Тут будет форма обратной связи или информация, как связаться.<br>
+      Пока это заглушка 😉
+    </p>
+  </div>
+
+</body>
+</html>
