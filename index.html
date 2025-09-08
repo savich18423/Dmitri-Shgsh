@@ -128,15 +128,24 @@
       border: 5px solid rgba(255,255,255,0.2);
       box-shadow: 0 0 30px rgba(138,108,255,0.8);
       z-index: 1;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.2s;
     }
 
+    /* Убрали синее свечение */
     .avatar-wrapper:active .avatar {
       transform: scale(1.1);
-      box-shadow: 0 0 50px #ff2bf7;
     }
 
-    /* Анимации */
+    /* +Бал */
+    .bal {
+      position: absolute;
+      color: #ff80ff;
+      font-weight: bold;
+      font-size: 1.5em;
+      pointer-events: none;
+      animation: balAnim 1s forwards;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -145,6 +154,28 @@
     @keyframes pulse {
       from { transform: scale(1); opacity: 0.9; }
       to { transform: scale(1.1); opacity: 1; }
+    }
+
+    @keyframes balAnim {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-50px); }
+    }
+
+    /* Падающие символы */
+    .falling {
+      position: fixed;
+      top: -50px;
+      font-size: 2em;
+      color: rgb(255, 153, 204);
+      opacity: 0.6;
+      pointer-events: none;
+      animation: fall linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-50px) rotate(0deg); opacity: 0.6; }
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
     /* Звёзды */
@@ -163,23 +194,6 @@
     @keyframes starFade {
       from { opacity: 1; transform: scale(1) translate(-50%, -50%); }
       to { opacity: 0; transform: scale(0) translate(-50%, -50%); }
-    }
-
-    /* Падающие цветы/символы */
-    .falling {
-      position: fixed;
-      top: -50px;
-      font-size: 2em;
-      color: rgb(255, 153, 204);
-      opacity: 0.6;
-      pointer-events: none;
-      animation: fall linear forwards;
-      z-index: 1;
-    }
-
-    @keyframes fall {
-      from { transform: translateY(-50px) rotate(0deg); opacity: 0.6; }
-      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
     /* Адаптив */
@@ -208,7 +222,7 @@
 
   <!-- Контент -->
   <div class="container">
-    <div class="avatar-wrapper">
+    <div class="avatar-wrapper" id="avatarWrapper">
       <img class="avatar" src="https://yt3.googleusercontent.com/uR5A7i-DbO_dgch_8J7D1wW0BV8o_Bdue1l2zJuHeEAcPzR64_6OuLXHJ5ZN4SSF3s4NnauOZw=s900-c-k-c0x00ffffff-no-rj" alt="Дима">
     </div>
     <h1>Йо, Дмитрий</h1>
@@ -240,7 +254,7 @@
       });
     }
 
-    // Падающие символы ✿
+    // Падающие символы
     function createFalling() {
       const symbols = ["✿", "★", "✦", "❀"];
       const symbol = symbols[Math.floor(Math.random() * symbols.length)];
@@ -252,8 +266,19 @@
       document.body.appendChild(elem);
       setTimeout(() => elem.remove(), 8000);
     }
-
     setInterval(createFalling, 1500);
+
+    // +Бал при нажатии на аватар
+    const avatarWrapper = document.getElementById("avatarWrapper");
+    avatarWrapper.addEventListener("click", (e) => {
+      const bal = document.createElement("div");
+      bal.className = "bal";
+      bal.textContent = "Больно вообще-то";
+      bal.style.left = (e.clientX - 20) + "px";
+      bal.style.top = (e.clientY - 20) + "px";
+      document.body.appendChild(bal);
+      setTimeout(() => bal.remove(), 1000);
+    });
   </script>
 
 </body>
