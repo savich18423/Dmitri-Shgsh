@@ -55,7 +55,7 @@
 
     h1 {
       font-size: 3em;
-      margin-bottom: 15px;
+      margin: 20px 0 15px;
       background: linear-gradient(90deg, #ff2bf7, #5a5cff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -83,9 +83,46 @@
       box-shadow: 0 0 20px #8a6cff;
     }
 
+    /* Фото с градиентом */
+    .avatar-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 25px;
+    }
+
+    .avatar-wrapper::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      right: -20px;
+      bottom: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ff2bf7, #5a5cff, transparent 70%);
+      filter: blur(40px);
+      z-index: 0;
+      animation: pulse 3s infinite alternate;
+    }
+
+    .avatar {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid rgba(255,255,255,0.2);
+      box-shadow: 0 0 30px rgba(138,108,255,0.8);
+      z-index: 1;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); opacity: 0.9; }
+      to { transform: scale(1.1); opacity: 1; }
     }
   </style>
 </head>
@@ -101,6 +138,9 @@
 
   <!-- Контент -->
   <div class="container">
+    <div class="avatar-wrapper">
+      <img class="avatar" src="https://yt3.googleusercontent.com/uR5A7i-DbO_dgch_8J7D1wW0BV8o_Bdue1l2zJuHeEAcPzR64_6OuLXHJ5ZN4SSF3s4NnauOZw=s900-c-k-c0x00ffffff-no-rj" alt="Дима">
+    </div>
     <h1>Йо, Дмитрий</h1>
     <p>
       Более известен как Дима ШГШ.<br>
