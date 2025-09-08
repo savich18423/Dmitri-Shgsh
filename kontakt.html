@@ -46,13 +46,17 @@
       box-shadow: 0 0 10px #8a6cff;
     }
 
-    /* Контейнер */
+    /* Контейнер с сеткой */
     .container {
       margin: auto;
-      text-align: center;
-      max-width: 700px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 40px;
+      max-width: 1000px;
       padding: 20px;
       animation: fadeIn 2s ease;
+      flex-wrap: wrap;
     }
 
     h1 {
@@ -61,16 +65,19 @@
       background: linear-gradient(90deg, #ff2bf7, #5a5cff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-align: center;
+      width: 100%;
     }
 
     .social-links {
       text-align: left;
-      display: inline-block;
       background: rgba(255,255,255,0.05);
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(138,108,255,0.4);
       line-height: 2em;
+      flex: 1;
+      min-width: 280px;
     }
 
     .social-links a {
@@ -91,12 +98,34 @@
       color: #ccc;
     }
 
+    /* Фото справа */
+    .side-image {
+      flex: 0 0 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .side-image img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(180, 90, 255, 0.8);
+      border: 3px solid rgba(200, 100, 255, 0.5);
+      transition: transform 0.3s;
+    }
+
+    .side-image img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(200, 100, 255, 1);
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Стили для звёздочек курсора */
+    /* Звёзды */
     .star {
       position: fixed;
       width: 8px;
@@ -112,6 +141,20 @@
     @keyframes starFade {
       from { opacity: 1; transform: scale(1) translate(-50%, -50%); }
       to { opacity: 0; transform: scale(0) translate(-50%, -50%); }
+    }
+
+    /* Адаптив */
+    @media (max-width: 700px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .side-image {
+        margin-top: 20px;
+      }
+      h1 {
+        font-size: 2em;
+      }
     }
   </style>
 </head>
@@ -136,11 +179,16 @@
       <p>📢 <a href="https://t.me/dimonchikshgsh" target="_blank">Телеграм-канал</a> — больше <b>45k</b> подписчиков</p>
       <p>🌐 <a href="https://www.twitch.tv/dimitryshgsh" target="_blank">dimitry.shgsh (Twitch)</a></p>
       <p>🌐 <a href="https://www.youtube.com/@shgshstream/streams" target="_blank">Димитрий ШГШ (YouTube)</a> — больше <b>90k</b> подписчиков</p>
+
+      <div class="footer">
+        <p>📩 По поводу рекламы/сотрудничества: <b>shgsh.comp@gmail.com</b></p>
+        <p>🤖 Предложка: <b>@dimonchiksgsh_bot</b></p>
+      </div>
     </div>
 
-    <div class="footer">
-      <p>📩 По поводу рекламы/сотрудничества: <b>shgsh.comp@gmail.com</b></p>
-      <p>🤖 Предложка: <b>@dimonchiksgsh_bot</b></p>
+    <!-- Фото справа -->
+    <div class="side-image">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaiTHjLp8Ad3pcKpb1FXYhe53lMSSowrQtng&s" alt="Dima">
     </div>
   </div>
 
