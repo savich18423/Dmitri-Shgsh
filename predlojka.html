@@ -66,39 +66,48 @@
       font-size: 1.1em;
       line-height: 1.6em;
       margin-bottom: 25px;
+      color: #ddd;
     }
 
+    /* Форма */
     form {
       background: rgba(255,255,255,0.05);
       padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(180, 90, 255, 0.4);
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(180, 90, 255, 0.5);
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
 
-    input, textarea {
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
+    textarea, input[type="text"], input[type="file"] {
+      padding: 14px;
+      border: 2px solid rgba(180,90,255,0.3);
+      border-radius: 12px;
       font-size: 1em;
       outline: none;
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    textarea:focus, input:focus {
+      border-color: #ff2bf7;
+      box-shadow: 0 0 10px rgba(180, 90, 255, 0.8);
     }
 
     input[type="file"] {
-      background: rgba(255,255,255,0.08);
-      color: #ddd;
-      padding: 10px;
+      cursor: pointer;
+      color: #bbb;
     }
 
     button {
       background: linear-gradient(90deg, #ff2bf7, #5a5cff);
       border: none;
-      padding: 12px;
-      border-radius: 10px;
+      padding: 14px;
+      border-radius: 12px;
       color: white;
-      font-size: 1.1em;
+      font-size: 1.2em;
       font-weight: bold;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.3s;
@@ -106,28 +115,30 @@
 
     button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(180, 90, 255, 0.7);
+      box-shadow: 0 0 20px rgba(180, 90, 255, 0.9);
     }
 
-    .success {
-      margin-top: 15px;
-      color: #80ffb0;
+    .success, .error {
+      margin-top: 12px;
       font-weight: bold;
       display: none;
     }
 
-    .error {
-      margin-top: 15px;
-      color: #ff8080;
-      font-weight: bold;
-      display: none;
-    }
+    .success { color: #80ffb0; }
+    .error { color: #ff8080; }
 
+    /* Адаптив */
     @media (max-width: 700px) {
       h1 {
         font-size: 1.8em;
       }
       p {
+        font-size: 1em;
+      }
+      form {
+        padding: 20px;
+      }
+      textarea, input, button {
         font-size: 1em;
       }
     }
@@ -147,16 +158,16 @@
   <div class="container">
     <h1>Предложка</h1>
     <p>
-      Итак, ну что ж, теперь вы можете прислать <b>ваши арты, работы и всё, что хотите</b>, связанное с Димой 🥰<br><br>
-      Внизу вы можете отправить <b>фото, видео, файл или текст</b> (мин. 5 символов).<br>
-      Также можете указать свой контакт, если хотите, чтобы вас не публиковали анонимно 👇
+      Итак, теперь вы можете прислать <b>ваши арты, работы и всё, что хотите</b>, связанное с Димой 🥰<br><br>
+      Внизу можно отправить <b>фото, видео, файл или текст</b> (мин. 5 символов).<br>
+      Также можно указать свой контакт, если хотите, чтобы вас не публиковали анонимно 👇
     </p>
 
     <form id="suggestionForm">
       <textarea name="text" placeholder="Введите текст (мин. 5 символов)" minlength="5" required></textarea>
       <input type="text" name="contact" placeholder="Ваш контакт (необязательно)">
       <input type="file" name="file">
-      <button type="submit">Отправить</button>
+      <button type="submit">📩 Отправить</button>
       <div class="success">✅ Успешно отправлено!</div>
       <div class="error">❌ Ошибка при отправке!</div>
     </form>
@@ -186,16 +197,16 @@
 
       try {
         // Отправка текста
-        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        const sendText = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: message,
-          }),
+          body: JSON.stringify({ chat_id: CHAT_ID, text: message }),
         });
 
-        // Отправка файла, если есть
+        const res = await sendText.json();
+        if (!res.ok) throw new Error(res.description);
+
+        // Отправка файла
         if (file && file.size > 0) {
           const fd = new FormData();
           fd.append("chat_id", CHAT_ID);
@@ -212,6 +223,7 @@
         form.reset();
       } catch (err) {
         document.querySelector(".error").style.display = "block";
+        document.querySelector(".error").innerText = "❌ Ошибка: " + err.message;
         document.querySelector(".success").style.display = "none";
       }
     });
