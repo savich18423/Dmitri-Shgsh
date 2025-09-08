@@ -13,7 +13,6 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      cursor: none; /* убираем стандартный курсор */
     }
 
     /* Навбар */
@@ -114,24 +113,6 @@
       from { opacity: 1; transform: scale(1) translate(-50%, -50%); }
       to { opacity: 0; transform: scale(0) translate(-50%, -50%); }
     }
-
-    /* Адаптив */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2em;
-      }
-      .navbar {
-        gap: 10px;
-      }
-      .navbar a {
-        font-size: 0.9em;
-        padding: 6px 12px;
-      }
-      .social-links {
-        font-size: 0.95em;
-        padding: 15px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -163,16 +144,24 @@
     </div>
   </div>
 
-  <!-- JS для курсора -->
+  <!-- JS для звёздочек только на телефонах -->
   <script>
-    document.addEventListener("mousemove", (e) => {
+    function createStar(x, y) {
       const star = document.createElement("div");
       star.className = "star";
-      star.style.left = `${e.pageX}px`;
-      star.style.top = `${e.pageY}px`;
+      star.style.left = `${x}px`;
+      star.style.top = `${y}px`;
       document.body.appendChild(star);
       setTimeout(() => star.remove(), 1000);
-    });
+    }
+
+    // Только для мобильных устройств
+    if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+      document.addEventListener("touchmove", (e) => {
+        const touch = e.touches[0];
+        createStar(touch.pageX, touch.pageY);
+      });
+    }
   </script>
 
 </body>
