@@ -15,7 +15,7 @@
       flex-direction: column;
       overflow-x: hidden;
 
-      /* 🔒 Запрет выделения */
+
       user-select: none;
       -webkit-user-select: none;
       -ms-user-select: none;
@@ -26,7 +26,7 @@
       outline: none;
     }
 
-    /* Навбар */
+
     .navbar {
       display: flex;
       justify-content: center;
@@ -105,7 +105,7 @@
       box-shadow: 0 0 20px #8a6cff;
     }
 
-    /* Фото */
+    
     .avatar-wrapper {
       position: relative;
       display: inline-block;
@@ -154,7 +154,7 @@
       to { transform: scale(1.1); opacity: 1; }
     }
 
-    /* ⭐ звезды */
+
     .star {
       position: fixed;
       width: 8px;
@@ -172,7 +172,6 @@
       to { opacity: 0; transform: scale(0) translate(-50%, -50%); }
     }
 
-    /* ✿ падающие символы */
     .falling {
       position: fixed;
       top: -50px;
@@ -216,7 +215,6 @@
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
-    <!-- Навбар -->
   <div class="navbar">
     <a href="index.html">Главная</a>
     <a href="kontakt.html">Контакты</a>
@@ -259,7 +257,6 @@
       });
     }
 
-    // Падающие символы
     function createFalling() {
       const symbols = ["✿", "★", "✦", "❀"];
       const symbol = symbols[Math.floor(Math.random() * symbols.length)];
@@ -273,7 +270,6 @@
     }
     setInterval(createFalling, 1500);
 
-    // +Бал при нажатии на аватар
     const avatarWrapper = document.getElementById("avatarWrapper");
     avatarWrapper.addEventListener("click", (e) => {
       const bal = document.createElement("div");
@@ -285,7 +281,6 @@
       setTimeout(() => bal.remove(), 1000);
     });
 
-    // 🔒 Запрет правой кнопки, копирования и выделения
     document.addEventListener("contextmenu", e => e.preventDefault());
     document.addEventListener("copy", e => e.preventDefault());
     document.addEventListener("selectstart", e => e.preventDefault());
