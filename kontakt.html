@@ -15,6 +15,7 @@
       flex-direction: column;
     }
 
+    /* Навбар */
     .navbar {
       display: flex;
       justify-content: center;
@@ -45,6 +46,7 @@
       box-shadow: 0 0 10px #8a6cff;
     }
 
+    /* Контейнер */
     .container {
       margin: auto;
       text-align: center;
@@ -55,15 +57,38 @@
 
     h1 {
       font-size: 2.5em;
-      margin: 20px 0 15px;
+      margin: 20px 0 25px;
       background: linear-gradient(90deg, #ff2bf7, #5a5cff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    p {
-      font-size: 1.1em;
-      line-height: 1.6em;
+    .social-links {
+      text-align: left;
+      display: inline-block;
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(138,108,255,0.4);
+      line-height: 2em;
+    }
+
+    .social-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #8a6cff;
+      text-shadow: 0 0 10px #ff2bf7;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 1em;
+      color: #ccc;
     }
 
     @keyframes fadeIn {
@@ -71,6 +96,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Адаптив */
     @media (max-width: 600px) {
       h1 {
         font-size: 2em;
@@ -82,11 +108,16 @@
         font-size: 0.9em;
         padding: 6px 12px;
       }
+      .social-links {
+        font-size: 0.95em;
+        padding: 15px;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- Навбар -->
   <div class="navbar">
     <a href="index.html">Главная</a>
     <a href="#">О Диме</a>
@@ -94,12 +125,21 @@
     <a href="kontakt.html">Контакты</a>
   </div>
 
+  <!-- Контент -->
   <div class="container">
     <h1>Контакты</h1>
-    <p>
-      Тут будет форма обратной связи или информация, как связаться.<br>
-      Пока это заглушка 😉
-    </p>
+
+    <div class="social-links">
+      <p>🎬 <a href="https://www.tiktok.com/@dima.shgsh?_t=8rqnqkaCAEB&_r=1" target="_blank">dima.shgsh (TikTok)</a></p>
+      <p>📷 <a href="https://www.instagram.com/dimonchik.shgsh/profilecard/?igsh=MWNtNjN6ajF5bW1tcA==" target="_blank">dimonchik.shgsh (Instagram)</a></p>
+      <p>🌐 <a href="https://www.twitch.tv/dimitryshgsh" target="_blank">dimitry.shgsh (Twitch)</a></p>
+      <p>🌐 <a href="https://www.youtube.com/@shgshstream/streams" target="_blank">Димитрий ШГШ (YouTube)</a></p>
+    </div>
+
+    <div class="footer">
+      <p>📩 По поводу рекламы/сотрудничества: <b>shgsh.comp@gmail.com</b></p>
+      <p>🤖 Предложка: <b>@dimonchiksgsh_bot</b></p>
+    </div>
   </div>
 
 </body>
