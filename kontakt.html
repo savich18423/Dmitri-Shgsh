@@ -46,6 +46,18 @@
       box-shadow: 0 0 10px #8a6cff;
     }
 
+    /* Рандомная фраза */
+    .random-phrase {
+      margin-top: 80px;
+      text-align: center;
+      font-size: 1.3em;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff2bf7, #5a5cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 1s ease;
+    }
+
     /* Контейнер */
     .container {
       margin: auto;
@@ -112,6 +124,9 @@
         font-size: 0.95em;
         padding: 15px;
       }
+      .random-phrase {
+        font-size: 1.1em;
+      }
     }
   </style>
 </head>
@@ -124,6 +139,9 @@
     <a href="#">Сериал</a>
     <a href="kontakt.html">Контакты</a>
   </div>
+
+  <!-- Рандомная фраза -->
+  <div class="random-phrase" id="randomPhrase">Загрузка...</div>
 
   <!-- Контент -->
   <div class="container">
@@ -143,6 +161,31 @@
       <p>🤖 Предложка: <b>@dimonchiksgsh_bot</b></p>
     </div>
   </div>
+
+  <!-- JS для смены фраз -->
+  <script>
+    const phrases = [
+      "дима покажи лицо",
+      "димитрий или дима?",
+      "дерзкий лох",
+      "майнкрафт моя жизнь",
+      "подпишись на тг",
+      "люблю Ксюшу",
+      "когда стрим",
+      "отстань",
+      "пишите - @DIMASCHOOL"
+    ];
+
+    const phraseEl = document.getElementById("randomPhrase");
+
+    function updatePhrase() {
+      const randomIndex = Math.floor(Math.random() * phrases.length);
+      phraseEl.textContent = phrases[randomIndex];
+    }
+
+    updatePhrase(); // сразу первая фраза
+    setInterval(updatePhrase, 5000); // меняется каждые 5 секунд
+  </script>
 
 </body>
 </html>
