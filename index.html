@@ -28,6 +28,7 @@
       right: 0;
       backdrop-filter: blur(8px);
       z-index: 100;
+      flex-wrap: wrap; /* для мобильных */
     }
 
     .navbar a {
@@ -37,11 +38,21 @@
       transition: 0.3s;
       padding: 8px 15px;
       border-radius: 8px;
+      font-size: 1em;
     }
 
     .navbar a:hover {
       background: linear-gradient(90deg, #ff2bf7, #5a5cff);
       box-shadow: 0 0 10px #8a6cff;
+    }
+
+    /* Подпись под навбаром */
+    .nav-text {
+      margin-top: 80px; /* отступ под фиксированный навбар */
+      text-align: center;
+      font-size: 1.2em;
+      color: #ccc;
+      animation: fadeIn 2s ease;
     }
 
     /* Контейнер контента */
@@ -54,7 +65,7 @@
     }
 
     h1 {
-      font-size: 3em;
+      font-size: 2.5em;
       margin: 20px 0 15px;
       background: linear-gradient(90deg, #ff2bf7, #5a5cff);
       -webkit-background-clip: text;
@@ -62,7 +73,7 @@
     }
 
     p {
-      font-size: 1.2em;
+      font-size: 1.1em;
       line-height: 1.6em;
       margin-bottom: 20px;
     }
@@ -124,6 +135,24 @@
       from { transform: scale(1); opacity: 0.9; }
       to { transform: scale(1.1); opacity: 1; }
     }
+
+    /* Адаптив */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+      .avatar {
+        width: 150px;
+        height: 150px;
+      }
+      .navbar {
+        gap: 10px;
+      }
+      .navbar a {
+        font-size: 0.9em;
+        padding: 6px 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -134,6 +163,11 @@
     <a href="#">О Диме</a>
     <a href="#">Сериал</a>
     <a href="#">Контакты</a>
+  </div>
+
+  <!-- Подпись под навбаром -->
+  <div class="nav-text">
+    Выберите нужную вам страницу 👍
   </div>
 
   <!-- Контент -->
