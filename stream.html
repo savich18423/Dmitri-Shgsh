@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Стримы</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at center, #2b0040, #0a0015);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+
+      /* 🔒 запрет выделения */
+      user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    /* Навбар */
+    .navbar {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      padding: 20px;
+      background: rgba(0,0,0,0.4);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      flex-wrap: wrap;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    .navbar a:hover {
+      background: linear-gradient(90deg, #ff2bf7, #5a5cff);
+      box-shadow: 0 0 10px #8a6cff;
+    }
+
+    /* Контент */
+    .container {
+      margin: auto;
+      max-width: 900px;
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 2s ease;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin: 100px 0 20px;
+      background: linear-gradient(90deg, #ff2bf7, #5a5cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.8em;
+      margin: 15px 0;
+    }
+
+    .avatar-big {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid rgba(255,255,255,0.2);
+      box-shadow: 0 0 30px rgba(180, 90, 255, 0.8);
+      margin-bottom: 20px;
+      transition: transform 0.3s;
+    }
+
+    .avatar-big:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(200, 100, 255, 1);
+    }
+
+    a {
+      color: #ff80ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-shadow: 0 0 10px #8a6cff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ⭐ Звёзды */
+    .star {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, #fff, transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      animation: starFade 1s forwards;
+      z-index: 9999;
+    }
+
+    @keyframes starFade {
+      from { opacity: 1; transform: scale(1) translate(-50%, -50%); }
+      to { opacity: 0; transform: scale(0) translate(-50%, -50%); }
+    }
+
+    /* ✿ падающие символы */
+    .falling {
+      position: fixed;
+      top: -50px;
+      font-size: 2em;
+      color: rgba(255,153,204,0.7);
+      pointer-events: none;
+      animation: fall linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Адаптив */
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 2em;
+      }
+      p {
+        font-size: 1em;
+      }
+      .avatar-big {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+  <!-- Навбар -->
+  <div class="navbar">
+    <a href="index.html">Главная</a>
+    <a href="#">О Диме</a>
+    <a href="#">Сериал</a>
+    <a href="kontakt.html">Контакты</a>
+    <a href="stream.html">Стримы</a>
+  </div>
+
+  <!-- Контент -->
+  <div class="container">
+    <img class="avatar-big" src="https://static-cdn.jtvnw.net/jtv_user_pictures/d2150145-6266-4f93-9e1f-88b340bfc956-profile_image-70x70.png" alt="Аватар стримера">
+
+    <h1>РАСПИСАНИЕ СТРИМОВ! 🥰</h1>
+
+    <p><a href="https://www.youtube.com/@shgshstream" target="_blank">YouTube канал стримов</a></p>
+
+    <p>———————————————<br>
+    ЛЮБОЙ БУДНИЙ ДЕНЬ<br>
+    ПЯТНИЦА<br>
+    СУББОТА<br>
+    ———————————————</p>
+
+    <p>⚠️ Сразу предупреждаю: в любой день стрим может отмениться,<br>
+    говорю сейчас чтобы потом не обидеть 🫶</p>
+
+    <p>ВСЕХ ЖДУ НА СТРИМАХ!</p>
+
+    <p>———————————————<br>
+    По поводу стримов..<br>
+    —————————————————<br>
+    Хочу сказать раз и навсегда!<br>
+    —————————————————</p>
+
+    <p>Стримы проводятся на <b>двух разных платформах одновременно!</b><br>
+    —————————————————</p>
+
+    <p>✅ <a href="https://www.twitch.tv/dimitryshgsh" target="_blank">Ссылка на Twitch</a><br>
+    ✅ <a href="https://www.youtube.com/@shgshstream/streams" target="_blank">Ссылка на YouTube</a></p>
+
+    <p>Жду вас на стримах, всех люблю ❤️</p>
+  </div>
+
+  <!-- JS эффекты -->
+  <script>
+    // ⭐ Звезды только на мобилке
+    function createStar(x, y) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = `${x}px`;
+      star.style.top = `${y}px`;
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1000);
+    }
+
+    if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+      document.addEventListener("touchmove", (e) => {
+        const touch = e.touches[0];
+        createStar(touch.pageX, touch.pageY);
+      });
+    }
+
+    // ✿ Падающие символы
+    function createFalling() {
+      const symbols = ["✿", "★", "✦", "❀"];
+      const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+      const elem = document.createElement("div");
+      elem.className = "falling";
+      elem.textContent = symbol;
+      elem.style.left = Math.random() * 100 + "vw";
+      elem.style.animationDuration = (4 + Math.random() * 4) + "s";
+      document.body.appendChild(elem);
+      setTimeout(() => elem.remove(), 8000);
+    }
+    setInterval(createFalling, 1500);
+
+    // 🔒 запрет копирования
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("copy", e => e.preventDefault());
+    document.addEventListener("selectstart", e => e.preventDefault());
+    document.addEventListener("dragstart", e => e.preventDefault());
+  </script>
+
+</body>
+</html>
